@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Leads from "./pages/Leads";
+import Contacts from "./pages/Contacts";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/leads" element={<Leads />} />
+            <Route path="/contacts" element={<Contacts />} />
             <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
           </Routes>

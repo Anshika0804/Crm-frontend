@@ -42,6 +42,7 @@ const Lead = () => {
       email: lead.email,
       phone_number: lead.phone_number,
       status: lead.status,
+      team: lead.team || "", // ✅ include team for editing
     });
   };
 
@@ -72,7 +73,7 @@ const Lead = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2>Leads List (Extended)</h2>
+      <h2>Leads List</h2>
 
       {/* Add Lead Form */}
       <AddLeadForm onLeadAdded={loadLeads} />
@@ -85,6 +86,7 @@ const Lead = () => {
             <th>Email</th>
             <th>Phone</th>
             <th>Status</th>
+            <th>Team</th> {/* ✅ Add team header */}
             <th>Assigned By</th>
             <th>Assigned To</th>
             <th>Created</th>
@@ -128,6 +130,18 @@ const Lead = () => {
                   </select>
                 ) : (
                   lead.status
+                )}
+              </td>
+              <td>
+                {editingLeadId === lead.id ? (
+                  <input
+                    name="team"
+                    value={formData.team || ""}
+                    onChange={handleChange}
+                    placeholder="Team ID"
+                  />
+                ) : (
+                  lead.team || "—"
                 )}
               </td>
               <td>{lead.assigned_by_name || "—"}</td>

@@ -12,7 +12,7 @@ export const fetchExtendedLeads = async () => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error fetching extended leads:", error);
+    console.error("Error fetching leads:", error);
     throw error;
   }
 };
