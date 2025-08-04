@@ -62,9 +62,14 @@ const Contacts = () => {
     }));
   };
 
+
   // const handleSaveEdit = async () => {
   //   try {
-  //     const updated = await updateContact(editingContact, formData);
+  //     const updated = await updateContact(editingContact, {
+  //       ...formData,
+  //       lead: selectedLead.id,
+  //     });
+
   //     const updatedContacts = contacts.map((c) =>
   //       c.id === editingContact ? updated : c
   //     );
@@ -73,6 +78,7 @@ const Contacts = () => {
   //     toast.success("Contact updated");
   //   } catch (err) {
   //     toast.error("Failed to update contact");
+  //     console.error("Update error:", err); // Optional debug log
   //   }
   // };
 
@@ -80,7 +86,7 @@ const Contacts = () => {
     try {
       const updated = await updateContact(editingContact, {
         ...formData,
-        lead: selectedLead.id, // ✅ Add this line to include lead
+        lead: selectedLead.id, // ✅ include lead during update
       });
 
       const updatedContacts = contacts.map((c) =>
@@ -91,27 +97,25 @@ const Contacts = () => {
       toast.success("Contact updated");
     } catch (err) {
       toast.error("Failed to update contact");
-      console.error("Update error:", err); // Optional debug log
+      console.error("Update error:", err);
     }
   };
-
 
   const handleAddContact = async () => {
     try {
       const newContact = await addContact({
         ...formData,
-        lead: selectedLead.id, 
+        lead: selectedLead.id, // ✅ Include this
       });
 
-      setContacts((prev) => [...prev, newContact]);
+      setContacts([...contacts, newContact]);
       setFormData({ name: "", email: "", phone_number: "" });
-      toast.success("Contact added");
-    } catch (err) {
+      toast.success("Contact added successfully");
+    } catch (error) {
       toast.error("Failed to add contact");
-      console.error("Add contact error:", err); // ✅ log for debugging
+      console.error("Add Contact Error:", error);
     }
   };
-
   return (
     <div>
       <h2>Leads</h2>

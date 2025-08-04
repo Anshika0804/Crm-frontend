@@ -25,9 +25,9 @@ export const fetchLeadsWithContacts = async () => {
 };
 
 // Add a new contact (you'll need to pass lead ID inside contactData)
-export const addContact = async (contactData) => {
+export const addContact = async (data) => {
   try {
-    const response = await axios.post(`${BASE_URL}/contacts/`, contactData, {
+    const response = await axios.post(`${BASE_URL}/contacts/`, data, {
       headers: getAuthHeader(),
     });
     return response.data;
@@ -36,6 +36,7 @@ export const addContact = async (contactData) => {
     throw error;
   }
 };
+
 
 // Update a contact (by contact ID)
 export const updateContact = async (id, updatedData) => {
