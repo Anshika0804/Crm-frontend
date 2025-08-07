@@ -6,6 +6,7 @@ import {
   deleteTicket,
   fetchLeadDropdown,
 } from "../api/tickets";
+import { FaEdit, FaTrash, FaPlusCircle } from "react-icons/fa";
 
 const Tickets = () => {
   const [tickets, setTickets] = useState([]);
@@ -20,7 +21,6 @@ const Tickets = () => {
   });
   const [editingTicketId, setEditingTicketId] = useState(null);
 
-  // Load tickets and leads
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -36,7 +36,6 @@ const Tickets = () => {
         setLoading(false);
       }
     };
-
     loadData();
   }, []);
 
@@ -57,8 +56,6 @@ const Tickets = () => {
         const newTicket = await addTicket(form);
         setTickets((prev) => [...prev, newTicket]);
       }
-
-      // Reset form
       setForm({
         title: "",
         description: "",
@@ -93,137 +90,143 @@ const Tickets = () => {
   };
 
   return (
-    <div className="container p-4 max-w-4xl mx-auto">
-      <h2 className="text-2xl font-semibold mb-4">Tickets</h2>
+    <div className="container my-5">
+      <h2 className="text-center mb-4">🎫 Ticket Management</h2>
 
       {/* Ticket Form */}
-      <form onSubmit={handleSubmit} className="bg-white shadow p-4 rounded mb-6 space-y-4">
-        <div>
-          <label className="block mb-1">Lead</label>
-          <select
-            name="lead"
-            value={form.lead}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-            required
-          >
-            <option value="">Select Lead</option>
-            {leads.length > 0 ? (
-              leads.map((lead) => (
-                <option key={lead.id} value={lead.id}>
-                  {lead.name}
-                </option>
-              ))
-            ) : (
-              <option disabled>No leads found</option>
-            )}
-          </select>
+      <div className="card mb-5 shadow-sm">
+        <div className="card-header bg-primary text-white">
+          {editingTicketId ? "Edit Ticket" : "Add New Ticket"} <FaPlusCircle className="ms-2" />
         </div>
+        <div className="card-body">
+          <form onSubmit={handleSubmit} className="row g-3">
+            <div className="col-md-6">
+              <label className="form-label">Lead</label>
+              <select
+                name="lead"
+                value={form.lead}
+                onChange={handleChange}
+                className="form-select"
+                required
+              >
+                <option value="">Select Lead</option>
+                {leads.length > 0 ? (
+                  leads.map((lead) => (
+                    <option key={lead.id} value={lead.id}>
+                      {lead.name}
+                    </option>
+                  ))
+                ) : (
+                  <option disabled>No leads found</option>
+                )}
+              </select>
+            </div>
 
-        <div>
-          <label className="block mb-1">Title</label>
-          <input
-            name="title"
-            type="text"
-            value={form.title}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-            required
-          />
+            <div className="col-md-6">
+              <label className="form-label">Title</label>
+              <input
+                name="title"
+                type="text"
+                value={form.title}
+                onChange={handleChange}
+                className="form-control"
+                required
+              />
+            </div>
+
+            <div className="col-12">
+              <label className="form-label">Description</label>
+              <textarea
+                name="description"
+                value={form.description}
+                onChange={handleChange}
+                className="form-control"
+                required
+              />
+            </div>
+
+            <div className="col-md-4">
+              <label className="form-label">Status</label>
+              <select
+                name="status"
+                value={form.status}
+                onChange={handleChange}
+                className="form-select"
+              >
+                <option value="open">Open</option>
+                <option value="in_progress">In Progress</option>
+                <option value="closed">Closed</option>
+              </select>
+            </div>
+
+            <div className="col-md-4">
+              <label className="form-label">Priority</label>
+              <select
+                name="priority"
+                value={form.priority}
+                onChange={handleChange}
+                className="form-select"
+              >
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+
+            <div className="col-md-4 d-flex align-items-end">
+              <button type="submit" className="btn btn-success w-100">
+                {editingTicketId ? "Update Ticket" : "Add Ticket"}
+              </button>
+            </div>
+          </form>
         </div>
-
-        <div>
-          <label className="block mb-1">Description</label>
-          <textarea
-            name="description"
-            value={form.description}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="block mb-1">Status</label>
-          <select
-            name="status"
-            value={form.status}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-          >
-            <option value="open">Open</option>
-            <option value="in_progress">In Progress</option>
-            <option value="closed">Closed</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block mb-1">Priority</label>
-          <select
-            name="priority"
-            value={form.priority}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-        >
-          {editingTicketId ? "Update Ticket" : "Add Ticket"}
-        </button>
-      </form>
+      </div>
 
       {/* Ticket List */}
       {loading ? (
-        <p>Loading tickets...</p>
+        <div className="text-center">Loading tickets...</div>
       ) : tickets.length === 0 ? (
-        <p>No tickets found.</p>
+        <div className="text-center text-muted">No tickets found.</div>
       ) : (
-        <table className="w-full border text-left">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border px-3 py-2">Title</th>
-              <th className="border px-3 py-2">Status</th>
-              <th className="border px-3 py-2">Priority</th>
-              <th className="border px-3 py-2">Lead</th>
-              <th className="border px-3 py-2">Assigned To</th>
-              <th className="border px-3 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tickets.map((ticket) => (
-              <tr key={ticket.id}>
-                <td className="border px-3 py-2">{ticket.title}</td>
-                <td className="border px-3 py-2 capitalize">{ticket.status}</td>
-                <td className="border px-3 py-2 capitalize">{ticket.priority}</td>
-                <td className="border px-3 py-2">{ticket.lead_name || "N/A"}</td>
-                <td className="border px-3 py-2">
-                  {ticket.assigned_to ? ticket.assigned_to : "Unassigned"}
-                </td>
-                <td className="border px-3 py-2 space-x-2">
-                  <button
-                    onClick={() => handleEdit(ticket)}
-                    className="text-blue-600 hover:underline"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(ticket.id)}
-                    className="text-red-600 hover:underline"
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div className="table-responsive shadow-sm">
+          <table className="table table-bordered table-hover align-middle">
+            <thead className="table-light">
+              <tr>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Lead</th>
+                <th>Assigned To</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {tickets.map((ticket) => (
+                <tr key={ticket.id}>
+                  <td>{ticket.title}</td>
+                  <td className="text-capitalize">{ticket.status}</td>
+                  <td className="text-capitalize">{ticket.priority}</td>
+                  <td>{ticket.lead_name || "N/A"}</td>
+                  <td>{ticket.assigned_to || "Unassigned"}</td>
+                  <td>
+                    <button
+                      className="btn btn-sm btn-outline-primary me-2"
+                      onClick={() => handleEdit(ticket)}
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={() => handleDelete(ticket.id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
