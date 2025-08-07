@@ -74,3 +74,34 @@ export const deleteTeam = async (teamId) => {
     throw error;
   }
 };
+
+
+// Assign users to a team
+export const assignUsersToTeam = async (teamId, userIds) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/teams/${teamId}/assign-users/`,
+      { user_ids: userIds },
+      { headers: getAuthHeader() }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error assigning users to team:", error);
+    throw error;
+  }
+};
+
+//Delete users from a team
+export const removeUsersFromTeam = async (teamId, userIds) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/teams/${teamId}/remove-users/`,
+      { user_ids: userIds },
+      { headers: getAuthHeader() }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error removing users from team:", error);
+    throw error;
+  }
+};
