@@ -12,7 +12,7 @@ import Contacts from "./pages/Contacts";
 import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import Users from "./pages/Users"; 
-// import Teams from "./pages/Teams";
+import Teams from "./pages/Teams";
 
 function App() {
   return (
@@ -28,7 +28,7 @@ function App() {
             <Route path="/leads" element={<Leads />} />
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/users" element={<Users />} /> 
-             {/* <Route path="/teams" element={<Teams />} /> */}
+             <Route path="/teams" element={<Teams />} />
             <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
           </Routes>

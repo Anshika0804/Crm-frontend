@@ -6,7 +6,7 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [editingUserId, setEditingUserId] = useState(null);
   const [formData, setFormData] = useState({});
-  const [expandedUserId, setExpandedUserId] = useState(null); // ✅ FIXED
+  const [expandedUserId, setExpandedUserId] = useState(null);
 
   const loadUsers = async () => {
     try {

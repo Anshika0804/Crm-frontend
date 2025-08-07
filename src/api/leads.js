@@ -2,6 +2,14 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8000/api";
 
+const getAuthHeader = () => {
+  const token = localStorage.getItem("accessToken");
+  return {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+};
+
 export const fetchExtendedLeads = async () => {
   const token = localStorage.getItem("accessToken");
   try {
@@ -49,13 +57,9 @@ export const deleteLead = async (leadId) => {
 };
 
 export const addLead = async (leadData) => {
-  const token = localStorage.getItem("accessToken");
   try {
     const response = await axios.post(`${BASE_URL}/leads/`, leadData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
+      headers: getAuthHeader(),
     });
     return response.data;
   } catch (error) {
