@@ -99,7 +99,7 @@ export const addAttachment = async (formData) => {
   }
 };
 
-// Update an attachment (optional, depends if you allow updating files)
+// Update an attachment 
 export const updateAttachment = async (attachmentId, updatedData) => {
   try {
     const response = await api.put(`/attachment/${attachmentId}/`, updatedData);

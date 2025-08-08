@@ -19,7 +19,6 @@ const Campaigns = () => {
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Load campaigns on mount
   useEffect(() => {
     loadCampaigns();
   }, []);

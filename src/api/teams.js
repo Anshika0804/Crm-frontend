@@ -11,7 +11,7 @@ const getAuthHeader = () => {
 };
 
 
-// Fetch all teams (based on user role)
+// Fetch all teams 
 export const fetchTeams = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/teams/`, {
