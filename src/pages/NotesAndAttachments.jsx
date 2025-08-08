@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 const BASE_URL = "http://localhost:8000/api/leads";
 
-// Always return token header
+// token header
 const getAuthHeader = (isMultipart = false) => {
   const token = localStorage.getItem("accessToken");
   return {
@@ -41,7 +41,6 @@ const NotesAndAttachments = () => {
     })();
   }, []);
 
-  // When user clicks "View" on a ticket
   const handleViewNotes = (ticket) => {
     setSelectedTicket(ticket);
   };
@@ -81,7 +80,7 @@ const NotesAndAttachments = () => {
     fetchAttachments();
   }, [selectedTicket]);
 
-  // --- NOTES HANDLERS ---
+  //NOTES HANDLERS
 
   const handleInputChange = (e) => {
     setNoteForm((prev) => ({
@@ -149,7 +148,7 @@ const NotesAndAttachments = () => {
     }
   };
 
-  // --- ATTACHMENTS HANDLERS ---
+  //ATTACHMENTS
 
   // File input change
   const handleFileChange = (e) => {

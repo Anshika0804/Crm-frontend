@@ -5,11 +5,12 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-dark bg-dark px-3">
       <Link className="navbar-brand" to="/">
-        Advanced CRM
+        CRM
       </Link>
       <div>
         <Link to="/login" className="btn btn-outline-light me-2">Login</Link>
         <Link to="/signup" className="btn btn-outline-light">Signup</Link>
+        <Link to="/login" className="btn btn-outline-light">Logout</Link>
       </div>
     </nav>
   );

@@ -2,12 +2,11 @@ import axios from "axios";
 
 const BASE_URL = "http://localhost:8000/api/leads";
 
-// Axios instance with default config
 const api = axios.create({
   baseURL: BASE_URL,
 });
 
-// Add Authorization header automatically for every request
+
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("accessToken");
   if (token) {
@@ -82,11 +81,9 @@ export const fetchAttachments = async (ticketId) => {
   }
 };
 
-// Add a new attachment to a specific ticket
-// note: fileData should be a FormData instance containing the file and any extra data if needed
+
 export const addAttachment = async (formData) => {
   try {
-    // For file upload, Content-Type will be set automatically by axios for multipart/form-data
     const token = localStorage.getItem("accessToken");
     const config = {
       headers: {

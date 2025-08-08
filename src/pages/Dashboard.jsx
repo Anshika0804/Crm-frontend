@@ -12,8 +12,6 @@
 
 // export default Dashboard;
 
-
-// src/pages/Dashboard.jsx
 import React from "react";
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import { FaUsers, FaUserCheck, FaChartLine } from "react-icons/fa";

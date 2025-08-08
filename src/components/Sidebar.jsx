@@ -1,4 +1,3 @@
-// src/components/Sidebar.js
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -13,7 +12,7 @@ const Sidebar = () => {
         <li className="nav-item"><Link className="nav-link" to="/teams">Teams</Link></li>
         <li className="nav-item"><Link className="nav-link" to="/tickets">Tickets</Link></li>
         <li className="nav-item"><Link className="nav-link" to="/notes-attachments">Notes & Attachments</Link></li>
-        <li className="nav-item"><Link className="nav-link" to="/Campaign">Campaigns</Link></li>
+        <li className="nav-item"><Link className="nav-link" to="/campaigns">Campaigns</Link></li>
       </ul>
     </div>
   );

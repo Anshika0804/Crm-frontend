@@ -13,7 +13,7 @@ const AddLeadForm = ({ onLeadAdded }) => {
   const [users, setUsers] = useState([]);
   const token = localStorage.getItem("accessToken");
 
-  //Fetch all users for assignment
+  //Fetch all users 
   useEffect(() => {
     const fetchUsers = async () => {
       try {

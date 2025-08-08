@@ -24,7 +24,7 @@ export const fetchLeadsWithContacts = async () => {
   }
 };
 
-// Add a new contact (you'll need to pass lead ID inside contactData)
+// Add a new contact 
 export const addContact = async (data) => {
   try {
     const response = await axios.post(`${BASE_URL}/contacts/`, data, {
