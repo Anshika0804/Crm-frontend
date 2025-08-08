@@ -1,4 +1,3 @@
-// src/api/notesAndAttachments.js
 import axios from "axios";
 
 const BASE_URL = "http://localhost:8000/api/leads";
@@ -18,7 +17,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-//NOTES API
+// NOTES API
 
 // Fetch all notes for a specific ticket
 export const fetchNotes = async (ticketId) => {
@@ -63,6 +62,63 @@ export const deleteNote = async (noteId) => {
     await api.delete(`/notes/${noteId}/`);
   } catch (error) {
     console.error(`Error deleting note with ID ${noteId}:`, error.response?.data || error);
+    throw error;
+  }
+};
+
+// ATTACHMENTS API
+
+// Fetch all attachments for a specific ticket
+export const fetchAttachments = async (ticketId) => {
+  try {
+    const response = await api.get(`/attachment/?ticket_id=${ticketId}`);
+    return response.data;
+  } catch (error) {
+    console.error(
+      `Error fetching attachments for ticket ${ticketId}:`,
+      error.response?.data || error
+    );
+    throw error;
+  }
+};
+
+// Add a new attachment to a specific ticket
+// note: fileData should be a FormData instance containing the file and any extra data if needed
+export const addAttachment = async (formData) => {
+  try {
+    // For file upload, Content-Type will be set automatically by axios for multipart/form-data
+    const token = localStorage.getItem("accessToken");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    };
+    const response = await api.post(`/attachment/`, formData, config);
+    return response.data;
+  } catch (error) {
+    console.error(`Error adding attachment:`, error.response?.data || error);
+    throw error;
+  }
+};
+
+// Update an attachment (optional, depends if you allow updating files)
+export const updateAttachment = async (attachmentId, updatedData) => {
+  try {
+    const response = await api.put(`/attachment/${attachmentId}/`, updatedData);
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating attachment with ID ${attachmentId}:`, error.response?.data || error);
+    throw error;
+  }
+};
+
+// Delete a specific attachment
+export const deleteAttachment = async (attachmentId) => {
+  try {
+    await api.delete(`/attachment/${attachmentId}/`);
+  } catch (error) {
+    console.error(`Error deleting attachment with ID ${attachmentId}:`, error.response?.data || error);
     throw error;
   }
 };
