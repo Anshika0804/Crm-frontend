@@ -13,6 +13,7 @@ const Sidebar = () => {
         <li className="nav-item"><Link className="nav-link" to="/tickets">Tickets</Link></li>
         <li className="nav-item"><Link className="nav-link" to="/notes-attachments">Notes & Attachments</Link></li>
         <li className="nav-item"><Link className="nav-link" to="/campaigns">Campaigns</Link></li>
+        <li className="nav-item"><Link className="nav-link" to="/notifications">Notifications</Link></li>
       </ul>
     </div>
   );
