@@ -1,72 +1,3 @@
-// // src/services/socketService.js
-// class SocketService {
-//   constructor() {
-//     this.socket = null;
-//     this.listeners = [];
-//   }
-
-//   connect() {
-//     if (this.socket) return; // already connected
-
-//     const token = localStorage.getItem("access");
-//     if (!token) return;
-
-//     // Add token as query param
-//     const wsUrl = `ws://localhost:8000/ws/notifications/?token=${token}`;
-
-//     this.socket = new WebSocket(wsUrl);
-
-//     this.socket.onopen = () => {
-//       console.log("WebSocket connected");
-//     };
-
-//     this.socket.onmessage = (event) => {
-//       try {
-//         const data = JSON.parse(event.data);
-//         this.listeners.forEach((callback) => callback(data));
-//         console.log("WebSocket message received:", data);
-//       } catch (err) {
-//         console.error("WebSocket message parse error:", err);
-//       }
-//     };
-
-//     this.socket.onclose = () => {
-//       console.log("WebSocket disconnected");
-//       this.socket = null;
-
-//       // Optional: auto-reconnect after 5 seconds
-//       setTimeout(() => this.connect(), 5000);
-//     };
-
-//     this.socket.onerror = (err) => {
-//       console.error("WebSocket error:", err);
-//     };
-//   }
-
-//   disconnect() {
-//     if (this.socket) {
-//       this.socket.close();
-//       this.socket = null;
-//     }
-//   }
-
-//   subscribe(callback) {
-//     if (typeof callback === "function") {
-//       this.listeners.push(callback);
-//     }
-//   }
-
-//   unsubscribe(callback) {
-//     this.listeners = this.listeners.filter((cb) => cb !== callback);
-//   }
-// }
-
-// // Assign instance to a variable before exporting (fixes ESLint warning)
-// const socketService = new SocketService();
-// export default socketService;
-
-
-// src/services/socketService.js
 class SocketService {
     constructor() {
         this.socket = null;
@@ -80,7 +11,6 @@ class SocketService {
             console.warn("No authentication token found for WebSocket connection.");
             return;
         }
-
         // Only connect if not already connected or connecting
         if (this.socket && (this.socket.readyState === WebSocket.OPEN || this.socket.readyState === WebSocket.CONNECTING)) {
             console.log("WebSocket already connected or connecting.");
@@ -92,7 +22,7 @@ class SocketService {
         const hostname = window.location.hostname;
         const port = window.location.port ? `:${window.location.port}` : ''; // Include port if it exists
 
-        // The token is sent as a query parameter for authentication
+        //Token is sent as a query parameter for authentication
         this.socket = new WebSocket(`${protocol}//${hostname}${port}/ws/notifications/?token=${token}`);
 
         this.socket.onopen = () => {

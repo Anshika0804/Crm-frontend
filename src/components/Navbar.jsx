@@ -3,11 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaBell, FaSignOutAlt } from "react-icons/fa"; 
 import Notifications from "./Notifications"; 
-// FIX: Changed default import to named import for authService's logout function
-import { logout as handleUserLogout } from "../services/authService"; // Renamed to avoid confusion with local handleLogout function
+import { logout as handleUserLogout } from "../services/authService"; 
 import axios from 'axios'; 
 
-// Base URL for your API, adjust if necessary
+
 const API_BASE_URL = "http://localhost:8000/notifications/"; 
 
 const Navbar = ({ isAuthenticated, socketService }) => {
@@ -49,7 +48,6 @@ const Navbar = ({ isAuthenticated, socketService }) => {
         setHasUnread(true); // Always set to true on new notification
       });
 
-      // Fetch initial notifications when component mounts and user is authenticated
       fetchNotifications();
 
       // Cleanup function for when component unmounts or isAuthenticated changes
@@ -59,7 +57,6 @@ const Navbar = ({ isAuthenticated, socketService }) => {
 
   const toggleDropdown = () => {
     setShowDropdown(prev => !prev);
-    // If opening the dropdown, refresh notifications from API to get latest read status
     if (!showDropdown) {
       fetchNotifications();
     }
@@ -87,22 +84,54 @@ const Navbar = ({ isAuthenticated, socketService }) => {
 
     } catch (error) {
       console.error("Error marking notification as read:", error);
-      // Revert optimistic update if API call fails (optional)
       fetchNotifications(); 
     }
   };
 
-  // Effect to update hasUnread state whenever notifications change
+
   useEffect(() => {
     setHasUnread(notifications.some(n => !n.is_read));
   }, [notifications]);
 
-  // Existing handleLogout function remains untouched as requested
   const handleLogout = () => {
-    handleUserLogout(); // Use the imported named export for logout
-    window.dispatchEvent(new Event("authChange")); // Notify App.js about logout
-    navigate("/login"); // Redirect to login page
+    handleUserLogout(); 
+    window.dispatchEvent(new Event("authChange")); 
+    navigate("/login"); 
   };
+
+  // const handleClearAllNotifications = async () => {
+  //   try {
+  //     const token = localStorage.getItem("accessToken");
+  //     if (!token) return;
+
+  //     // Optimistically mark all notifications as read in the UI
+  //     setNotifications(prev => prev.map(n => ({ ...n, is_read: true })));
+
+  //     // Send API requests to mark each unread notification as read
+  //     // We'll filter only unread ones to avoid unnecessary API calls
+  //     const unreadNotifications = notifications.filter(n => !n.is_read);
+  //     const patchPromises = unreadNotifications.map(notification => 
+  //       axios.patch(`${API_BASE_URL}${notification.id}/`, { is_read: true }, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       })
+  //     );
+
+  //     await Promise.allSettled(patchPromises); // Wait for all patches to settle
+
+  //     // Re-fetch notifications from the backend to ensure full synchronization
+  //     await fetchNotifications();
+      
+  //     // Optionally close the dropdown after clearing all
+  //     setShowDropdown(false);
+
+  //   } catch (error) {
+  //     console.error("Error clearing all notifications:", error);
+  //     fetchNotifications(); // Revert/resync in case of error
+  //   }
+  // };
+
 
   return (
     <nav className="navbar navbar-dark bg-dark px-3 d-flex justify-content-between">
@@ -128,12 +157,12 @@ const Navbar = ({ isAuthenticated, socketService }) => {
               )}
             </div>
 
-            {/* Dropdown notifications - rendered conditionally */}
             {showDropdown && (
               <Notifications 
                 notifications={notifications} 
                 onMarkAsRead={handleMarkAsRead} 
-                onClose={() => setShowDropdown(false)} // Pass a close handler
+                // onClearAll={handleClearAllNotifications} 
+                onClose={() => setShowDropdown(false)}
               />
             )}
 

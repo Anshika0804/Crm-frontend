@@ -47,8 +47,6 @@
 // export default App;
 
 
-
-// src/App.js
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -67,23 +65,20 @@ import Tickets from "./pages/Tickets";
 import NotesAndAttachments from "./pages/NotesAndAttachments";
 import Campaigns from "./pages/Campaigns";
 
-// Import the socket service
 import { socketService } from "./services/socketService";
 
 function App() {
   // State to track if the user is authenticated
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Use useEffect to manage WebSocket connection based on authentication
+  // Used useEffect to manage WebSocket connection based on authentication
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (token) {
       setIsAuthenticated(true);
-      // Connect WebSocket if authenticated
       socketService.connect(token);
     } else {
       setIsAuthenticated(false);
-      // Disconnect WebSocket if not authenticated
       socketService.disconnect();
     }
 
@@ -101,7 +96,7 @@ function App() {
       }
     };
 
-    // Assuming you have a custom event for auth changes, or you can listen to storage events
+    // I have a custom event for auth changes(in login)
     window.addEventListener("authChange", handleAuthChange);
 
     // Cleanup function: disconnect WebSocket when component unmounts
