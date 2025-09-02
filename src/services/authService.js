@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/api"; //Django backend
+const API_URL = "https://advanced-crm.onrender.com/api"; //Django backend
 
 export const login = async (email, password) => {
   const response = await axios.post(`${API_URL}/token/`, { email, password });

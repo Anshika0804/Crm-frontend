@@ -7,7 +7,7 @@ import { logout as handleUserLogout } from "../services/authService";
 import axios from 'axios'; 
 
 
-const API_BASE_URL = "http://localhost:8000/notifications/"; 
+const API_BASE_URL = "https://advanced-crm.onrender.com/notifications/";
 
 const Navbar = ({ isAuthenticated, socketService }) => {
   const [showDropdown, setShowDropdown] = useState(false);

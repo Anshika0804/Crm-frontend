@@ -20,7 +20,7 @@ const ResetPassword = () => {
     }
 
     try {
-      await axios.post(`http://localhost:8000/api/users/reset-password/${uid}/${token}/`, {
+      await axios.post(`https://advanced-crm.onrender.com/api/users/reset-password/${uid}/${token}/`, {
         password,
       });
 

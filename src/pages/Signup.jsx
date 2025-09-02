@@ -29,7 +29,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/api/users/register/", {
+      const response = await fetch("https://advanced-crm.onrender.com/api/users/register/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

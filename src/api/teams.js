@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8000/api";
+// const BASE_URL = "http://localhost:8000/api";
+const BASE_URL = "https://advanced-crm.onrender.com/api";
+
 
 const getAuthHeader = () => {
   const token = localStorage.getItem("accessToken");

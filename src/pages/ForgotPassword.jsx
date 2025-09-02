@@ -11,7 +11,7 @@ function ForgotPassword() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/users/forgot-password/", {
+      const response = await fetch("https://advanced-crm.onrender.com/api/users/forgot-password/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

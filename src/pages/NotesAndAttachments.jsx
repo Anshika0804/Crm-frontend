@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const BASE_URL = "http://localhost:8000/api/leads";
+const BASE_URL = "https://advanced-crm.onrender.com/api/leads";
 
 // token header
 const getAuthHeader = (isMultipart = false) => {
