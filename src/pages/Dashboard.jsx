@@ -3,7 +3,7 @@ import { Card, Container, Row, Col, Spinner } from "react-bootstrap";
 import { FaUsers, FaUserFriends, FaLayerGroup } from "react-icons/fa";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8000/api";
+const BASE_URL = "https://advanced-crm.onrender.com/api";
 
 function Dashboard() {
   const [counts, setCounts] = useState({

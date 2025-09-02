@@ -17,7 +17,7 @@ const AddLeadForm = ({ onLeadAdded }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/api/users/list/", {
+        const res = await axios.get("https://advanced-crm.onrender.com/api/users/list/", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -49,7 +49,7 @@ const AddLeadForm = ({ onLeadAdded }) => {
     };
 
     try {
-      const res = await axios.post("http://localhost:8000/api/leads/", payload, {
+      const res = await axios.post("https://advanced-crm.onrender.com/api/leads/", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

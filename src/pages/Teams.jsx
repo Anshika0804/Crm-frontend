@@ -36,7 +36,7 @@ const Teams = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await fetch(
-        "http://localhost:8000/api/users/users-with-leads/",
+        "https://advanced-crm.onrender.com/api/users/users-with-leads/",
         {
           headers: {
             Authorization: `Bearer ${token}`,

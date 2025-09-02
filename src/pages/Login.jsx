@@ -14,7 +14,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/api/token/", {
+      const response = await fetch("https://advanced-crm.onrender.com/api/token/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
